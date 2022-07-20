@@ -1,7 +1,7 @@
 .DragAndDrop{
     cursor: pointer;
     position: relative;
-    transition: none;
+    transition: all 0.5s;
 }
 
 

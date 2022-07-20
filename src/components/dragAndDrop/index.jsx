@@ -62,7 +62,7 @@ function handleMouseMove({ clientX, clientY }, state, setState, props) {
                   isPressMove: true,
                   isAndmin: true
             });
-            props.handleMove({ clientX, clientY, dom: state.dom.current })
+            props.handleMove({ clientX, clientY, dom: state.dom.current });
 
       };
 };
