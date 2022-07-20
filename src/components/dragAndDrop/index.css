@@ -1,0 +1,17 @@
+.DragAndDrop{
+    cursor: pointer;
+    position: relative;
+    transition: none;
+}
+
+
+.isActive{
+    box-shadow: inset 0 0 0 2px #ff6933;
+    position: relative;
+    z-index: 11111;
+    transition: none !important;
+}
+
+.isAndmin {
+    transition: all 0.5s;
+}
