@@ -17,6 +17,7 @@ export default function DragAndDrop(props) {
       });
 
       useEffect(()=>{
+         const domIfon = state.dom.current.getBoundingClientRect();
          props.addDom(state.dom.current)
          return ()=>{
            props.removeDom(state.dom.current)
@@ -30,7 +31,7 @@ export default function DragAndDrop(props) {
             onMouseDown={(event) => { handleMouseDown(event, state, setState) }}
             onMouseMove={(event) => { handleMouseMove(event, state, setState, props) }}
             onMouseUp={(event) => { handleMouseUp(event, state, setState) }}
-            onTransitionEnd={(event) => { handleTransitionEnd(event, state, setState) }}
+            onTransitionEnd={(event) => { handleTransitionEnd(event, state, setState, props) }}
       >
             {props.children}
       </div>);
@@ -81,12 +82,14 @@ function handleMouseUp({ clientX, clientY }, state, setState) {
 };
 
 
-function handleTransitionEnd(event, state, setState) {
+function handleTransitionEnd(event, state, setState, props) {
       if(state.isAndmin){
          setState({
            ...state,
            isAndmin: false
          });
+      }else{
+        props.handleTransitionEnd()
       }
 };
 

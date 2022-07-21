@@ -11,7 +11,9 @@ export default function Visualization(props) {
     dataStructure: [{ id: 1 }, { id: 2 }, { id: 3 }],
     domStructure: [],
     tranIdIfon: null,
-    pressIfon: null
+    pressIfon: null,
+    isTranEnd: true,
+
   });
   window.state = state
   return (<div className={`${styles.Visualization}`}>
@@ -25,7 +27,7 @@ export default function Visualization(props) {
       handleMove={(ifon) => { handleMove(ifon, state, setState) }}
       handleUp={() => { handleUp() }}
       handleClick={() => { handleClick() }}
-      handleTransitionEnd={() => { handleTransitionEnd() }}
+      handleTransitionEnd={() => { handleTransitionEnd(state, setState, props) }}
     ></Subject>
 
   </div>);
@@ -67,7 +69,7 @@ function handleMove(ifon, state, setState) {
   if (!newDoms1.length) {
     return;
   };
-
+  
   const targetDomIfon = newDoms1[0].getBoundingClientRect();
   const pressDomIfon = ifon.dom.getBoundingClientRect();
 
@@ -100,8 +102,7 @@ function handleMove(ifon, state, setState) {
   };
 
 
-
-  if (topBool || bottomBool) {
+  if (topBool || bottomBool && state.isTranEnd) {
 
     let x = ifon.clientX - pressDomIfon.left;
     let y = ifon.clientY - pressDomIfon.top;
@@ -109,12 +110,21 @@ function handleMove(ifon, state, setState) {
     x = ifon.clientX - targetDomIfon.left + -x;
     y = ifon.clientY - targetDomIfon.top + -y;
 
-    const startIndex = pressDomIfon < targetDomIfon ? pressDomIfon : targetDomIndex;
-    const endIndex = startIndex === pressDomIfon ? targetDomIndex : pressDomIfon;
+    const tranItmes = [];
 
-    for (let i = startIndex; i < endIndex; i++) {
+   for(let i = pressDomIndex < targetDomIndex ? pressDomIndex + 1 : targetDomIndex; i <= (pressDomIndex < targetDomIndex ? targetDomIndex : pressDomIndex - 1); i ++){
+       tranItmes.push({
+           id: state.dataStructure[i].id,
+           top: pressDomIndex < targetDomIndex ? -pressDomIfon.height : pressDomIfon.height
+       });
+   }
 
-    };
+
+   setState({
+    ...state,
+    tranIdIfon: tranItmes,
+    isTranEnd: false,
+   });
 
     /* state.domStructure.splice(targetDomIndex, 1, ...state.domStructure.splice(pressDomIndex, 1, state.domStructure[targetDomIndex]));
     state.dataStructure.splice(targetDomIndex, 1, ...state.dataStructure.splice(pressDomIndex, 1, state.dataStructure[targetDomIndex]));
@@ -129,6 +139,10 @@ function handleUp() {
 
 };
 
-function handleTransitionEnd() {
-
+function handleTransitionEnd(state, setState, props) {
+  console.log('==')
+      setState({
+        ...state,
+        isTranEnd: true
+      })
 };
