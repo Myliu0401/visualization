@@ -97,6 +97,7 @@ function handleMove(ifon, state, setState) {
          
          if(bool){
            const doms = [];
+           const tranIdIfon = [];
            for(let i = startIndex; i <= endIndex; i++){
                 doms.push(state.domStructure[i]);
            };
@@ -105,7 +106,7 @@ function handleMove(ifon, state, setState) {
                if(doms.includes(state.domStructure[i])){
                 
                }else{
-
+                    
                }
            };
           
