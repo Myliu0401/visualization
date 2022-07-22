@@ -12,7 +12,7 @@ export default function Subject(props) {
 
 
 function generateChildren(dataStructure, props) {
-      return dataStructure.map((item) => {
+      return dataStructure.map((item, index) => {
             return <DragAndDrop
                   key={item.id}
                   addDom={props.addDom}
@@ -23,6 +23,8 @@ function generateChildren(dataStructure, props) {
                   handleTransitionEnd={props.handleTransitionEnd}
                   finalY={props.tranIdIfon ? getItemIfon(props, item.id) : 0}
                   pressIfon={props.pressIfon}
+                  index={index}
+                  id={item.id}
             >
                   <div style={{ width: '100%', height: 189, boxShadow: '0px 0px 1px #008c8c' }}>{ item.id }</div>
             </DragAndDrop>
