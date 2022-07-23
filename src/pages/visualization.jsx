@@ -86,10 +86,12 @@ function handleMove(ifon, state, setState) {
      
      if((pressDomIndex + 1) === targetDomIndex || (pressDomIndex - 1) === targetDomIndex){
       isNextDoor = true;  
-      upAndDown = pressDomIndex < targetDomIndex ? '' : '';
+      
      }else{
 
      }
+     upAndDown = ifon.clientY > (targetDomIfon.top + targetDomIfon.height / 2) ? 'bottom' : 'top';
+     
    
 };
 
