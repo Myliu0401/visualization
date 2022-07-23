@@ -13,6 +13,7 @@ export default function DragAndDrop(props) {
             differenceY: 0,
             isDragAndDrop: false,
             isDragUp: false,
+            isExercise: true,
             dom: createRef(),
             dom1: createRef(),
       });
@@ -40,7 +41,7 @@ export default function DragAndDrop(props) {
         <div 
            className={`${styles.dragAndDrop_Box} ${state.isDragAndDrop ? styles.isDragAndDrop : ''} ${state.isDragUp ? styles.isDragUp : ''}`} 
            ref={state.dom1}
-           onMouseDown={ (event)=>{ handleMouseDown(event, state, setState) } }
+           onMouseDown={ (event)=>{ handleMouseDown(event, state, setState, props) } }
            onMouseMove={ (event)=>{ handleMouseMove(event, state, setState, props) } }
            onMouseUp={ (event)=>{ handleMouseUp(event, state, setState) } }
            onTransitionEnd={ (event)=>{ handleTransitionEnd(event, state, setState) } }
@@ -67,14 +68,21 @@ function getDomIfon(dom){
     return domIfon;
 };
 
-function handleMouseDown({ clientX, clientY }, state, setState) {
+function handleMouseDown({ clientX, clientY }, state, setState, props) {
+  if(!state.isExercise){
+       return;
+  };
+
   const dom1Ifon = state.dom1.current.getBoundingClientRect();
       setState({
         ...state,
         isPress: true,
         clientX: clientX - dom1Ifon.left,
-        clientY: clientY - dom1Ifon.top
+        clientY: clientY - dom1Ifon.top,
       });
+
+      props.handleDown && props.handleDown({ dom: state.dom,  id: props.id, clientX, clientY });
+
 };
 
 function handleMouseMove({ clientX, clientY }, state, setState, props) {

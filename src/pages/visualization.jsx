@@ -21,9 +21,9 @@ export default function Visualization(props) {
     <Subject
       dataStructure={state.dataStructure}
       tranIdIfon={state.tranIdIfon}
-      pressIfon={state.pressIfon}
       addDom={(dom) => { addDom(dom, state, setState) }}
       removeDom={() => { removeDom() }}
+      handleDown={(obj)=>{ handleDown(obj, state, setState) }}
       handleMove={(ifon) => { handleMove(ifon, state, setState) }}
       handleUp={() => { handleUp() }}
       handleClick={() => { handleClick() }}
@@ -51,68 +51,83 @@ function handleClick() {
 
 };
 
-function handleMove(ifon, state, setState) {
-  const pressDomIfon = ifon.dom.getBoundingClientRect();
-  let activeDom = state.domStructure.filter((dom)=>{
-       const domIfon = dom.getBoundingClientRect();
-       const bool = (ifon.clientX > domIfon.left) && 
-                    (ifon.clientY > domIfon.top) && 
-                    (ifon.clientX < (domIfon.left + domIfon.width)) && 
-                    (ifon.clientY < (domIfon.top + domIfon.height));
-       return bool;
-  });
+function handleDown(obj, state, setState){
   
-  // 获取目标dom
-  activeDom = activeDom.length ? activeDom.length > 1 ? activeDom.filter((dom)=>{return dom !== ifon.dom})[0] : activeDom[0] : null;
-  
-  if(activeDom !== ifon.dom && activeDom !== null){
-         
-         const targetDomIfon = activeDom.getBoundingClientRect();
-         const pressDomIndex = state.domStructure.indexOf(ifon.dom);
-         const targetDomIndex = state.domStructure.indexOf(activeDom);
-
-         const upAndDown = (ifon.clientY < (targetDomIfon.height / 2 + targetDomIfon.top)) ? 'top' : 'bottom';
-
-         const point = (pressDomIndex + 1 === targetDomIndex) ? 'prev' : (pressDomIndex - 1 === targetDomIndex) ? 'next' : ((pressDomIndex + 1 !== targetDomIndex) || (pressDomIndex - 1 !== targetDomIndex)) && 'no';
-
-         const bool = (point === 'prev' && upAndDown === 'bottom') || (point === 'next' && upAndDown === 'top') || point === 'no';
-         
-         let startIndex = null;
-         let endIndex = null;
-     
-         if(pressDomIndex < targetDomIndex && point === 'prev'){
-             startIndex = pressDomIndex + 1;
-             endIndex = targetDomIndex;
-         }else if(pressDomIndex > targetDomIndex && point === 'next'){ 
-             startIndex = targetDomIndex;
-             endIndex = pressDomIndex - 1;
-         }else if(point === 'no' && upAndDown === 'top'){
-             startIndex = pressDomIndex < targetDomIndex ? pressDomIndex + 1 : targetDomIndex;
-             endIndex = pressDomIndex < targetDomIndex ? targetDomIndex - 1 : pressDomIndex - 1;
-         }else if(point === 'no' && upAndDown === 'bottom'){
-             startIndex = pressDomIndex < targetDomIndex ? pressDomIndex + 1 : targetDomIndex + 1;
-             endIndex = pressDomIndex < targetDomIndex ? targetDomIndex : pressDomIndex - 1;
-         };
-         
-         
-         if(bool){
-           const doms = [];
-           const tranIdIfon = [];
-           for(let i = startIndex; i <= endIndex; i++){
-                doms.push(state.domStructure[i]);
-           };
-           
-           for(let i = 0; i < state.domStructure.length; i++){
-               if(doms.includes(state.domStructure[i])){
-                
-               }else{
-                    
-               }
-           };
-          
-         }
-  }
+   /*  setState({
+      ...state,
+      pressIfon: {
+        width: obj.domIfon.width,
+        height: obj.domIfon.height,
+        top: obj.domIfon.top,
+        left: obj.domIfon.left,
+        id: obj.id
+      }
+    }); */
 };
+
+function handleMove(ifon, state, setState) {
+     
+     let targetDom = state.domStructure.filter((dom)=>{
+        const domIfon = dom.getBoundingClientRect();
+        const bool = ((domIfon.top + domIfon.height) > ifon.clientY) && ((domIfon.left + domIfon.width) > ifon.clientX) && (domIfon.top < ifon.clientY) && (domIfon.left < ifon.clientX);
+        return ifon.dom !== dom && bool;
+     });
+     targetDom = targetDom[0];
+     if(!targetDom){
+        return ;
+     };
+
+     const pressDomIndex = state.domStructure.indexOf(ifon.dom);
+     const targetDomIndex = state.domStructure.indexOf(targetDom);
+     const pressDomIfon = state.domStructure[pressDomIndex].getBoundingClientRect();
+     const targetDomIfon = state.domStructure[targetDomIndex].getBoundingClientRect();
+     let isNextDoor = false;
+     let upAndDown = null;
+     
+     if((pressDomIndex + 1) === targetDomIndex || (pressDomIndex - 1) === targetDomIndex){
+      isNextDoor = true;  
+      upAndDown = pressDomIndex < targetDomIndex ? '' : '';
+     }else{
+
+     }
+   
+};
+
+function calculateCoordinates(doms, value, id, pressIfon){
+ 
+    const s = [];
+    for(let i=0; i < doms.length; i++){
+      const dom = doms[i];
+      const domIfon = dom.getBoundingClientRect();
+      if(dom.dataset.id.toString() !== id.toString()){
+            
+          if((domIfon.top + domIfon.height) <= value){
+              s.push({
+                id: dom.dataset.id,
+                top: -pressIfon.height
+              })
+          }else{
+            s.push({
+              id: dom.dataset.id,
+              top: 0
+            })
+          }
+     };
+    }
+  
+    return s;
+};
+
+function getPrevious(doms, value){
+  
+     for(let i = 0; i< doms.length; i++){
+        const ifon = doms[i].getBoundingClientRect();
+        if((ifon.height + ifon.top) === (value)){
+              return ifon
+        }
+     }
+};
+
 
 
 function handleUp() {

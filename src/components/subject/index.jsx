@@ -17,6 +17,7 @@ function generateChildren(dataStructure, props) {
                   key={item.id}
                   addDom={props.addDom}
                   removeDom={props.removeDom}
+                  handleDown={props.handleDown}
                   handleMove={props.handleMove}
                   handleUp={props.handleUp}
                   handleClick={props.handleClick}
@@ -38,7 +39,7 @@ function getItemIfon(props, id){
     };
    
     const s = props.tranIdIfon.filter((child)=>{
-         return child.id === id  
+         return child.id.toString() === id.toString()
     });
 
     return s.length ? s[0].top : 0
