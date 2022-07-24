@@ -171,7 +171,7 @@ function handleMove(ifon, state, setState) {
   setState({
     ...state,
     tranIdIfon
-  })
+  });
 
 
 };
