@@ -1,6 +1,7 @@
 .dragAndDrop{
     position: relative;
     transition: all 0.5s;
+    user-select: none;
 }
 
 .dragAndDrop_Box{
@@ -10,7 +11,7 @@
 .isDragAndDrop{
     box-shadow: inset 0 0 0 2px #ff6933;
     position: fixed;
-    z-index: 11111;
+    z-index: 1;
     transition: none !important;
 }
 

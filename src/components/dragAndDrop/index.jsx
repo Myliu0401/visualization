@@ -43,11 +43,11 @@ export default function DragAndDrop(props) {
            ref={state.dom1}
            onMouseDown={ (event)=>{ handleMouseDown(event, state, setState, props) } }
            onMouseMove={ (event)=>{ handleMouseMove(event, state, setState, props) } }
-           onMouseUp={ (event)=>{ handleMouseUp(event, state, setState) } }
+           onMouseUp={ (event)=>{ handleMouseUp(event, state, setState, props) } }
            onTransitionEnd={ (event)=>{ handleTransitionEnd(event, state, setState) } }
            style={{
                left: state.differenceX,
-               top: state.differenceY,
+               top: props.pressIfon ? props.id.toString() === props.pressIfon.id.toString() ? props.pressIfon.top : state.differenceY : state.differenceY,
                width: (state.isDragAndDrop || state.isDragUp) && getDomIfon(state.dom1).width,
                height: (state.isDragAndDrop || state.isDragUp) && getDomIfon(state.dom1).height
            }}
@@ -81,7 +81,7 @@ function handleMouseDown({ clientX, clientY }, state, setState, props) {
         clientY: clientY - dom1Ifon.top,
       });
 
-      props.handleDown && props.handleDown({ dom: state.dom,  id: props.id, clientX, clientY });
+  props.handleDown && props.handleDown({ dom: state.dom,  id: props.id, clientX, clientY });
 
 };
 
@@ -98,27 +98,31 @@ function handleMouseMove({ clientX, clientY }, state, setState, props) {
     
 };
 
-function handleMouseUp({ clientX, clientY }, state, setState) {
+function handleMouseUp({ clientX, clientY }, state, setState, props) {
      const domIfon = state.dom.current.getBoundingClientRect(); 
-     setState({
-        ...state,
-        isPress: false,
-        isDragAndDrop: false,
-        isDragUp: true,
-        differenceX: domIfon.left,
-        differenceY: domIfon.top
-     });
+     if(state.isDragAndDrop){
+        setState({
+           ...state,
+           isPress: false,
+           isDragAndDrop: false,
+           isDragUp: true,
+           differenceX: domIfon.left,
+           differenceY: domIfon.top
+        });
+        props.handleUp && props.handleUp({ clientX, clientY, dom: state.dom.current });
+     };
+     
 };
 
 
 function handleTransitionEnd({ clientX, clientY }, state, setState, props) {
-    if(state.isDragUp){
+    /* if(state.isDragUp){
        setState({
           ...state,
           isDragUp: false,
           differenceX: 0,
           differenceY: 0
        });
-    };
+    }; */
 };
 
