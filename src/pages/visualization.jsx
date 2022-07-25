@@ -11,9 +11,10 @@ export default function Visualization(props) {
     dataStructure: [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }],
     domStructure: [],
     tranIdIfon: [],
+    exceptPressDoms: [],
     pressIfon: null,
     targetDomIfon: null,
-    isItOnTheTarget: false,
+    isItOnTheTarget: true,
     totalHeight: 0,
   });
   window.state = state
@@ -23,6 +24,8 @@ export default function Visualization(props) {
       dataStructure={state.dataStructure}
       tranIdIfon={state.tranIdIfon}
       pressIfon={state.pressIfon}
+      exceptPressDoms={state.exceptPressDoms}
+      isItOnTheTarget={state.isItOnTheTarget}
       addDom={(dom) => { addDom(dom, state, setState) }}
       removeDom={() => { removeDom() }}
       handleDown={(obj) => { handleDown(obj, state, setState) }}
@@ -56,14 +59,17 @@ function handleClick() {
 
 function handleDown(obj, state, setState) {
    let totalHeight = 0;
+   const except = [];
    for(let i = 0; i < state.domStructure.length; i++){
       const domIfon = state.domStructure[i].getBoundingClientRect();
+      except.push({ id: state.domStructure[i].dataset.id, isT: obj.dom !== state.domStructure[i] })
       totalHeight += domIfon.height
    };
 
    setState({
     ...state,
-    totalHeight
+    totalHeight,
+    exceptPressDoms: except
    });
   
 };
@@ -105,6 +111,7 @@ function handleMove(ifon, state, setState) {
         ...state,
         tranIdIfon,
         domStructure,
+        isItOnTheTarget: false
       });
     };
     return;
@@ -191,9 +198,11 @@ function handleMove(ifon, state, setState) {
   state.domStructure.splice(pressDomIndex, 1, null);
   state.domStructure.splice(targetIndex1, 0, pressDom);
   state.domStructure.splice(state.domStructure.indexOf(null), 1);
+  
   setState({
     ...state,
     tranIdIfon,
+    isItOnTheTarget: false
   });
 
 
@@ -210,27 +219,44 @@ function getItem(arr, id) {
 
 function handleUp(ifon, state, setState) {
     const pressDomIfon = ifon.dom.getBoundingClientRect();
-    const parentNodeIfon = state.domStructure[0].parentNode.getBoundingClientRect();
+    const parentNodeIfon = state.domStructure[0].parentNode.getBoundingClientRect(); // 父级dom
     const totalHeight = state.totalHeight > parentNodeIfon.height ? parentNodeIfon.height : state.totalHeight;
     const Boxbool = (ifon.clientX > parentNodeIfon.left) && (ifon.clientX < (parentNodeIfon.left + parentNodeIfon.width)) && (ifon.clientY > parentNodeIfon.top) && (ifon.clientY < (parentNodeIfon.top + totalHeight));
     let myTop = 0;
+
+    // 坐标是否在父级以内
     if(Boxbool){
       const index = state.domStructure.indexOf(ifon.dom);
       const index1 = index === 0 ? index : index - 1;
       const domIfon =  state.domStructure[index1].getBoundingClientRect();
-      myTop = index ? domIfon.height + domIfon.top : domIfon.top
+      myTop = index ? domIfon.height + domIfon.top : parentNodeIfon.top;
     };
     
 
-    /* setState({
+    setState({
       ...state,
       pressIfon: {
         id: ifon.dom.dataset.id,
-        top: Boxbool ? myTop : 0 
+        top: Boxbool ? myTop : pressDomIfon.top
       }
-    }); */
+    });
 };
 
 function handleTransitionEnd(state, setState, props) {
-
+    const dataStructure = [];
+    for(let i = 0; i < state.domStructure.length; i++){
+       const id = state.domStructure[i].dataset.id;
+       dataStructure.push(state.dataStructure.filter(item => item.id.toString() === id.toString())[0])
+    };
+  
+    setState({
+      ...state,
+      dataStructure,
+      tranIdIfon: [],
+      pressIfon: null,
+      targetDomIfon: null,
+      isItOnTheTarget: true,
+      exceptPressDoms: [],
+      totalHeight: 0,
+    });
 };

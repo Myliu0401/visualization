@@ -16,6 +16,8 @@ function generateChildren(dataStructure, props) {
             return <DragAndDrop
                   key={item.id}
                   addDom={props.addDom}
+                  isItOnTheTarget={props.isItOnTheTarget}
+                  isT={props.exceptPressDoms.filter(obj => obj.id.toString()===item.id.toString()).length ? props.exceptPressDoms.filter(obj => obj.id.toString()===item.id.toString())[0].isT : false}
                   removeDom={props.removeDom}
                   handleDown={props.handleDown}
                   handleMove={props.handleMove}

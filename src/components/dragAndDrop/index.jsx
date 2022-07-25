@@ -13,7 +13,6 @@ export default function DragAndDrop(props) {
             differenceY: 0,
             isDragAndDrop: false,
             isDragUp: false,
-            isExercise: true,
             dom: createRef(),
             dom1: createRef(),
       });
@@ -27,7 +26,7 @@ export default function DragAndDrop(props) {
       }, []);
 
       return (<div  
-           className={`${styles.dragAndDrop}`}
+           className={`${props.isT ? styles.dragAndDrop : ''}`}
            ref={state.dom}
            data-index={props.index}
            data-id={props.id}
@@ -44,7 +43,7 @@ export default function DragAndDrop(props) {
            onMouseDown={ (event)=>{ handleMouseDown(event, state, setState, props) } }
            onMouseMove={ (event)=>{ handleMouseMove(event, state, setState, props) } }
            onMouseUp={ (event)=>{ handleMouseUp(event, state, setState, props) } }
-           onTransitionEnd={ (event)=>{ handleTransitionEnd(event, state, setState) } }
+           onTransitionEnd={ (event)=>{ handleTransitionEnd(event, state, setState, props) } }
            style={{
                left: state.differenceX,
                top: props.pressIfon ? props.id.toString() === props.pressIfon.id.toString() ? props.pressIfon.top : state.differenceY : state.differenceY,
@@ -69,9 +68,9 @@ function getDomIfon(dom){
 };
 
 function handleMouseDown({ clientX, clientY }, state, setState, props) {
-  if(!state.isExercise){
-       return;
-  };
+  if(!props.isItOnTheTarget){
+      return
+  }
 
   const dom1Ifon = state.dom1.current.getBoundingClientRect();
       setState({
@@ -86,6 +85,7 @@ function handleMouseDown({ clientX, clientY }, state, setState, props) {
 };
 
 function handleMouseMove({ clientX, clientY }, state, setState, props) {
+    
     if(state.isPress){
         setState({
           ...state,
@@ -99,6 +99,7 @@ function handleMouseMove({ clientX, clientY }, state, setState, props) {
 };
 
 function handleMouseUp({ clientX, clientY }, state, setState, props) {
+     
      const domIfon = state.dom.current.getBoundingClientRect(); 
      if(state.isDragAndDrop){
         setState({
@@ -116,13 +117,18 @@ function handleMouseUp({ clientX, clientY }, state, setState, props) {
 
 
 function handleTransitionEnd({ clientX, clientY }, state, setState, props) {
-    /* if(state.isDragUp){
+    if(state.isDragUp){
        setState({
           ...state,
-          isDragUp: false,
+          isPress: false,
+          pressX: 0,
+          pressY: 0,
           differenceX: 0,
-          differenceY: 0
+          differenceY: 0,
+          isDragAndDrop: false,
+          isDragUp: false,
        });
-    }; */
+       props.handleTransitionEnd && props.handleTransitionEnd()
+    };
 };
 
