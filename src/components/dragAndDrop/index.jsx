@@ -26,7 +26,7 @@ export default function DragAndDrop(props) {
       }, []);
 
       return (<div  
-           className={`${props.isT ? styles.dragAndDrop : ''}`}
+           className={`${props.isT ? styles.dragAndDrop : ''} ${styles.dragAndDrop1}`}
            ref={state.dom}
            data-index={props.index}
            data-id={props.id}
@@ -34,11 +34,12 @@ export default function DragAndDrop(props) {
            style={{
               width: (state.isDragAndDrop || state.isDragUp) && getDomIfon(state.dom1).width,
               height: (state.isDragAndDrop || state.isDragUp) && getDomIfon(state.dom1).height,
-              top: props.finalY
+              top: props.finalY,
+              backgroundColor: 'transparent'
            }}
       >
         <div 
-           className={`${styles.dragAndDrop_Box} ${state.isDragAndDrop ? styles.isDragAndDrop : ''} ${state.isDragUp ? styles.isDragUp : ''}`} 
+           className={`${styles.dragAndDrop_Box} ${state.isDragAndDrop ? styles.isDragAndDrop : ''} ${state.isDragUp ? styles.isDragUp : ''} ${styles.itemDrop} ${state.isDragAndDrop ? styles.wtill : ''}`} 
            ref={state.dom1}
            onMouseDown={ (event)=>{ handleMouseDown(event, state, setState, props) } }
            onMouseMove={ (event)=>{ handleMouseMove(event, state, setState, props) } }
@@ -53,6 +54,7 @@ export default function DragAndDrop(props) {
         >
           {props.children}
         </div>
+          <div className={`${(state.isDragAndDrop ? true : state.isDragUp || false ) || styles.dragAndDrop1_close}`}> { (state.isDragAndDrop ? true : state.isDragUp || false ) ? null : 'X' } </div> 
       </div>);
 };
 
@@ -114,7 +116,6 @@ function handleMouseUp({ clientX, clientY }, state, setState, props) {
      };
      
 };
-
 
 function handleTransitionEnd({ clientX, clientY }, state, setState, props) {
     if(state.isDragUp){

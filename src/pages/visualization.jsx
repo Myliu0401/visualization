@@ -1,14 +1,18 @@
 
 import Subject from '@/components/subject/index.jsx';
-
+import LeftSidebar from '@/components/leftSidebar/index.jsx';
+import RightSidebar from '@/components/rightSidebar/index.jsx';
+import fanhui from '@/assets/image/fanhui.png';
+import baocun from '@/assets/image/baocun.png';
+import shonshen from '@/assets/image/shongshen.png';
 import { useState, useEffect } from 'react';
-
 import styles from './visualization.css';
+import ImgComp from '@/components/imgComp/index.jsx';
 
 export default function Visualization(props) {
 
   const [state, setState] = useState({
-    dataStructure: [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }],
+    dataStructure: [{ id: 1, Content: ImgComp  }, { id: 2, Content: ImgComp }, { id: 3, Content: ImgComp }],
     domStructure: [],
     tranIdIfon: [],
     exceptPressDoms: [],
@@ -19,6 +23,29 @@ export default function Visualization(props) {
   });
   window.state = state
   return (<div className={`${styles.Visualization}`}>
+   <div className={`${styles.title_nav}`}>
+    <div className={`${styles.nav_left}`}>
+      <div className={`${styles.nav_left_item}`}>
+        <img src={fanhui} className={`${styles.nav_left_item_img}`}></img>
+        <span className={`${styles.nav_left_item_text}`}>返回上一步</span>
+      </div>
+      
+    </div>
+    <div className={`${styles.nav_right}`}>
+      <div className={`${styles.nav_right_item}`}>
+        <img src={baocun} className={`${styles.nav_right_item_img}`}></img>
+        <span className={`${styles.nav_right_item_text}`}>保存</span>
+      </div>
+      <div className={`${styles.nav_right_item}`}>
+        <img src={shonshen} className={`${styles.nav_right_item_img}`}></img>
+        <span className={`${styles.nav_right_item_text}`}>送审</span>
+      </div>
+    </div>
+   </div>
+
+   <div className={`${styles.mainContent}`}>
+
+    <LeftSidebar></LeftSidebar>
 
     <Subject
       dataStructure={state.dataStructure}
@@ -35,6 +62,11 @@ export default function Visualization(props) {
       handleTransitionEnd={() => { handleTransitionEnd(state, setState, props) }}
     ></Subject>
 
+
+    <RightSidebar></RightSidebar>
+ 
+   </div>
+  
   </div>);
 };
 
@@ -47,11 +79,9 @@ function addDom(dom, state, setState) {
   });
 };
 
-
 function removeDom() {
 
 };
-
 
 function handleClick() {
 
@@ -214,8 +244,6 @@ function getItem(arr, id) {
   });
   return s[0];
 };
-
-
 
 function handleUp(ifon, state, setState) {
     const pressDomIfon = ifon.dom.getBoundingClientRect();

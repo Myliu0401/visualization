@@ -1,5 +1,5 @@
 import '@/reset.css';
-import '@/assets/css/overallSituation.css';
+import '@/index.css';
 
 export default function index(props){
    return (<div>

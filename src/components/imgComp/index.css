@@ -1,0 +1,18 @@
+
+
+.ImgComp{
+  width: 100%
+}
+
+.ImgComp_seizeASeat{
+  width: 100%;
+  height: 227px;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ImgComp_seizeASeat_img{
+  width: 40px;
+}

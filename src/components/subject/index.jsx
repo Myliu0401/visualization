@@ -3,7 +3,7 @@ import styles from './index.css';
 import DragAndDrop from '@/components/dragAndDrop/index.jsx';
 
 export default function Subject(props) {
-      return (<div className={`${styles.Subject}`}>
+      return (<div className={`${styles.Subject}`} >
 
             {generateChildren(props.dataStructure, props)}
 
@@ -29,7 +29,8 @@ function generateChildren(dataStructure, props) {
                   index={index}
                   id={item.id}
             >
-                  <div style={{ width: '100%', height: 189, boxShadow: '0px 0px 1px #008c8c' }}>{ item.id }</div>
+                  <item.Content></item.Content>
+             {/*      <div style={{ width: '100%', height: 189, boxShadow: '0px 0px 1px #008c8c' }}>{ item.id }</div> */}
             </DragAndDrop>
       });
 };

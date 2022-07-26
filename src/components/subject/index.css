@@ -6,6 +6,8 @@
     overflow-y: scroll;
     outline: none;
     user-select: none;
+    background-color: rgb(247, 243, 238);
+    margin-top: 50px;
 }
 
 .Subject::-webkit-scrollbar {
