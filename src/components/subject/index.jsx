@@ -30,7 +30,6 @@ function generateChildren(dataStructure, props) {
                   id={item.id}
             >
                   <item.Content></item.Content>
-             {/*      <div style={{ width: '100%', height: 189, boxShadow: '0px 0px 1px #008c8c' }}>{ item.id }</div> */}
             </DragAndDrop>
       });
 };
