@@ -1,0 +1,86 @@
+.NovelComp{
+  user-select:none;
+}
+
+.NovelComp_box{
+  -webkit-user-drag:none;
+}
+
+.NovelComp_box_content{
+  -webkit-user-drag:none;
+  width: 90%;
+  background-color: rgb(255, 255, 255);
+  border-radius: 4px;
+  margin: 0 auto;
+}
+
+.NovelComp_box_content_box{
+  -webkit-user-drag:none;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  margin-top: 2px;
+  justify-content: space-between;
+  padding-right: 8px;
+}
+
+.NovelComp_box_content_box_left{
+  -webkit-user-drag:none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.NovelComp_box_content_box_left_img{
+  -webkit-user-drag:none;
+  border-radius: 4px;
+  width: 56px;
+  height: 56px;
+  margin: 8px;
+}
+
+.NovelComp_box_content_box_left_textBox{
+  -webkit-user-drag:none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.NovelComp_box_content_box_left_textBox_title{
+  -webkit-user-drag:none;
+  font-size: 16px;
+}
+
+
+.NovelComp_box_content_box_left_textBox_text{
+  -webkit-user-drag:none;
+  font-size: 12px;
+  display: inline-block;
+  margin-top: 7px;
+}
+
+.NovelComp_box_content_box_right{
+  -webkit-user-drag:none;
+  outline: none;
+  border: none;
+  height: 32px;
+  line-height: 32px;
+  border-radius: 5px;
+  font-size: 14px;
+  color: rgb(255, 255, 255);
+  background-color: rgb(24, 144, 255);
+  padding: 0px 19px;
+}
+
+
+.NovelComp_box_seizeASeat{
+  padding: 12px 60px 24px 42px;
+  user-select:none;
+  -webkit-user-drag:none;
+}
+
+.NovelComp_box_seizeASeat_img{
+  width: 100%;
+  user-select:none;
+  -webkit-user-drag:none;
+}

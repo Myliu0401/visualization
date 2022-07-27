@@ -1,0 +1,22 @@
+.ButtonComp{
+   width: 100%;
+} 
+
+.ButtonComp_box{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 2px;
+}
+
+.ButtonComp_box_button{
+  color: rgb(255, 255, 255);
+  background-color: rgb(24, 144, 255);
+  font-size: 16px;
+  width: 90%;
+  line-height: 40px;
+  border-radius: 4px;
+  height: 40px;
+  border: none;
+  outline: none;
+}

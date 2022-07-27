@@ -8,11 +8,13 @@ import shonshen from '@/assets/image/shongshen.png';
 import { useState, useEffect } from 'react';
 import styles from './visualization.css';
 import ImgComp from '@/components/imgComp/index.jsx';
+import NovelComp from '@/components/novelComp/index.jsx';
+import ButtonComp from '@/components/buttonComp/index.jsx';
 
 export default function Visualization(props) {
 
   const [state, setState] = useState({
-    dataStructure: [{ id: 1, Content: ImgComp  }, { id: 2, Content: ImgComp }, { id: 3, Content: ImgComp }],
+    dataStructure: [{ id: 1, Content: ImgComp  }, { id: 2, Content: NovelComp }, { id: 3, Content: ButtonComp }],
     domStructure: [],
     tranIdIfon: [],
     exceptPressDoms: [],
@@ -30,6 +32,9 @@ export default function Visualization(props) {
         <span className={`${styles.nav_left_item_text}`}>返回上一步</span>
       </div>
       
+    </div>
+    <div style={{color:'#fff'}}>
+      <span>阅宝落地页</span>
     </div>
     <div className={`${styles.nav_right}`}>
       <div className={`${styles.nav_right_item}`}>

@@ -2,6 +2,7 @@
 
 .ImgComp{
   width: 100%;
+  -webkit-user-drag:none;
 }
 
 .ImgComp_seizeASeat{
@@ -11,14 +12,17 @@
   align-items: center;
   justify-content: center;
   padding: 2px;
+  -webkit-user-drag:none;
 }
 
 .ImgComp_seizeASeat div{
   display: flex;
   align-items: center;
   justify-content: center;
+  -webkit-user-drag:none;
 }
 
 .ImgComp_seizeASeat_img{
   width: 40px;
+  -webkit-user-drag:none;
 }

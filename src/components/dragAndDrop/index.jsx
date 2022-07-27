@@ -84,6 +84,10 @@ function handleMouseDown({ clientX, clientY }, state, setState, props) {
 
   props.handleDown && props.handleDown({ dom: state.dom,  id: props.id, clientX, clientY });
 
+  window.onmouseup = (event)=>{
+    handleMouseUp(event, state, setState, props);
+  };
+
 };
 
 function handleMouseMove({ clientX, clientY }, state, setState, props) {
@@ -113,9 +117,23 @@ function handleMouseUp({ clientX, clientY }, state, setState, props) {
            differenceY: domIfon.top
         });
         props.handleUp && props.handleUp({ clientX, clientY, dom: state.dom.current });
-     };
-     
+
+     }else{
+      setState({
+        ...state,
+        isPress: false,
+        pressX: 0,
+        pressY: 0,
+        differenceX: 0,
+        differenceY: 0,
+        isDragAndDrop: false,
+        isDragUp: false,
+      })
+     }
+      window.onmouseup = null;
 };
+
+
 
 function handleTransitionEnd({ clientX, clientY }, state, setState, props) {
     if(state.isDragUp){

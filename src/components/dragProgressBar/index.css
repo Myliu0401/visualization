@@ -1,0 +1,47 @@
+
+
+.DragProgressBar{
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.DragProgressBar_title{
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.DragProgressBar_subject{
+    flex-grow: 1;
+    height: 2px;
+    background: #eaecf0;
+}
+
+.DragProgressBar_subject_p{
+    width: 100%;
+    position: relative;
+}
+
+.DragProgressBar_subject_p_span{
+    display: flex;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #296bef;
+    position: absolute;
+    background-color: #fff;
+    cursor: grab;
+    border-radius: 50%;
+    z-index: 2;
+    transform: translate(-8px, -8px);
+}
+
+.DragProgressBar_input{
+   display: inline-block;
+   margin-left: 15px;
+   width: 60px;
+   height: 30px;
+   border-radius: 2px;
+   border: 1px solid #d6d9e0;
+   outline: none;
+   padding: 0px 10px;
+}
