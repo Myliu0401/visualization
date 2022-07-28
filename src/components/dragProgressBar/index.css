@@ -27,7 +27,7 @@
     width: 18px;
     height: 18px;
     border: 2px solid #296bef;
-    position: absolute;
+    position: relative;
     background-color: #fff;
     cursor: grab;
     border-radius: 50%;
