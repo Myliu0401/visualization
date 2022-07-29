@@ -21,27 +21,31 @@ export default function DragProgressBar(props){
         }
         handleMouseMove(event, state, setState, props)
       };
-      const up = (event)=>{
-        if(!this.props){
-          return;
-        };
-        handleMouseUp(event, state, setState, props);
-      };
-      wdinow.addEventListener('mousemove', move);
-      window.addEventListener('mouseup', up);
+ 
+      window.addEventListener('mousemove', move);
       return ()=>{
-        widnow.removeEventListener('mousemove', move);
-        window.removeEventListener('mouseup', up);
+        window.removeEventListener('mousemove', move);
       };
     }, [state.isPress, state.isDragAndDrop]);
 
+    useEffect(()=>{
+        const up = (event)=>{
+          handleMouseUp(event, state, setState, props);
+        };
+        window.addEventListener('mouseup', up);
+        return ()=>{
+          window.removeEventListener('mouseup', up);
+        }
+    }, [state.currntX]);
+
+window.state = state
 
     return (<div className={`${styles.DragProgressBar}`}>
       <span className={`${styles.DragProgressBar_title}`}>test</span>
       <div className={`${styles.DragProgressBar_subject}`}>
         <p className={`${styles.DragProgressBar_subject_p}`}>
           <span 
-            className={`${styles.DragProgressBar_subject_p_span}`}
+            className={`${styles.DragProgressBar_subject_p_span} ${state.isPress ? styles.DragProgressBar_subject_p_span_press : ''}`}
             style={{
               left: state.currntX
             }}
@@ -76,9 +80,10 @@ function handleMouseMove({ clientX, clientY }, state, setState, props){
    });
 };
 
-function handleMouseUp({ clientX, clientY }, state, setState, props, move, moup){
+function handleMouseUp({ clientX, clientY }, state, setState, props){
+  console.log(state)
     setState({
-      
+      ...state,
       isPress: false,
       isDragAndDrop: false,
       pressX: 0,

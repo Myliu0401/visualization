@@ -34,6 +34,9 @@
     z-index: 2;
     transform: translate(-8px, -8px);
 }
+.DragProgressBar_subject_p_span_press{
+  cursor: grabbing !important;
+}
 
 .DragProgressBar_input{
    display: inline-block;
