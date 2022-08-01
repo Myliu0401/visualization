@@ -4,22 +4,32 @@
     width: 100%;
     display: flex;
     align-items: center;
+    -webkit-user-drag: none;
+    user-select: none;
 }
 
 .DragProgressBar_title{
     display: inline-block;
     margin-right: 15px;
+    -webkit-user-drag: none;
+    user-select: none;
 }
 
 .DragProgressBar_subject{
     flex-grow: 1;
     height: 2px;
     background: #eaecf0;
+    -webkit-user-drag: none;
+    user-select: none;
 }
 
 .DragProgressBar_subject_p{
     width: 100%;
     position: relative;
+    -webkit-user-drag: none;
+    user-select: none;
+    height: 2px;
+    background-color: #296bef;
 }
 
 .DragProgressBar_subject_p_span{
@@ -33,9 +43,15 @@
     border-radius: 50%;
     z-index: 2;
     transform: translate(-8px, -8px);
+    -webkit-user-drag: none;
+    user-select: none;
+    transition: box-shadow 0.5s;
 }
 .DragProgressBar_subject_p_span_press{
   cursor: grabbing !important;
+  -webkit-user-drag: none;
+  user-select: none;
+  box-shadow: 0 0 8px #2090d1;
 }
 
 .DragProgressBar_input{
@@ -47,4 +63,6 @@
    border: 1px solid #d6d9e0;
    outline: none;
    padding: 0px 10px;
+   user-select: none;
+   -webkit-user-drag: none;
 }

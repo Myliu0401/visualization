@@ -1,6 +1,6 @@
 
 import styles from './index.css';
-import { useState, useEffect, createRef } from 'react';
+import { useState, useEffect, createRef, useCallback } from 'react';
 
 export default function DragProgressBar(props) {
 
@@ -12,8 +12,13 @@ export default function DragProgressBar(props) {
     pressX: 0,
     currntX: 0,
     dom: createRef(),
-    value: props.value
+    value: ''
   });
+
+  const func = useCallback(createAntiShakeFunc(1000, (...parameter)=>{
+    handleValue(parameter[0], parameter[1], parameter[2], parameter[3])
+  }),[]);
+
 
   useEffect(() => {
     const move = (event) => {
@@ -38,7 +43,8 @@ export default function DragProgressBar(props) {
 
   useEffect(() => {
     if (Number(state.value) !== Number(props.value)) {
-  
+      const value1 = props.value < props.minimum ? props.minimum : props.value > props.maximum ? props.maximum : props.value;
+      handleValue(value1, state, setState, props);
     }
   }, [props.value]);
 
@@ -63,15 +69,15 @@ export default function DragProgressBar(props) {
     <input
       className={`${styles.DragProgressBar_input}`}
       value={state.value}
-      onChange={(event) => {
-        console.log(event.target.value)
+      onChange={(event)=>{
+        handleInput(event, state, setState, props, func);
       }} />
   </div>);
 };
 
 
 DragProgressBar.defaultProps = {
-  minimum: 16,
+  minimum: 0,
   maximum: 100,
   value: 16
 };
@@ -84,7 +90,6 @@ function handleMouseDown({ clientX, clientY }, state, setState, props) {
     pressX: clientX
   });
 };
-
 
 function handleMouseMove({ clientX, clientY }, state, setState, props) {
   if (!state.isPress) {
@@ -118,4 +123,40 @@ function handleMouseUp({ clientX, clientY }, state, setState, props) {
 
 function handleValue(value, state, setState, props) {
 
+   const domIfon = state.dom.current.getBoundingClientRect();
+   const totalL = props.maximum - props.minimum;
+   const decimal = domIfon.width / totalL;
+   const leg = decimal * (value - props.minimum) / domIfon.width;
+
+   setState({
+    ...state,
+    currntUpX: Math.round(domIfon.width * leg),
+    currntX: Math.round(domIfon.width * leg),
+    value
+   });
+   
+};
+
+function handleInput(event, state, setState, props, func){
+     let value = event.target.value;
+     value = value.replace(/\D/g,'');
+     value = value < props.minimum ? props.minimum : value > props.maximum ? props.maximum : value;
+     setState({
+      ...state,
+      isPress: false,
+      isDragAndDrop: false,
+      pressX: 0,
+      value: value
+     });
+     func(Math.round(value), state, setState, props);
+};
+
+function createAntiShakeFunc(time, func){
+   let identification = null;
+   return (...parameter)=>{
+      clearTimeout(identification)
+      identification = setTimeout(()=>{
+          func(...parameter);
+      }, time);
+   };
 };
