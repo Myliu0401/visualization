@@ -1,5 +1,6 @@
 
 import DragProgressBar from "@/components/dragProgressBar/index.jsx";
+import ColorPalette from '@/components/colorPalette/index.jsx';
 
 export default function Test(props){
      return (<div style={{
@@ -8,6 +9,6 @@ export default function Test(props){
           top: '30%',
           left: '30%'
       }}>
-      <DragProgressBar></DragProgressBar>
+      <ColorPalette></ColorPalette>
      </div>) 
 };

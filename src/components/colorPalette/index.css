@@ -1,25 +1,148 @@
 
 
 .ColorPalette{
-
+   width: 180px;
+   box-shadow: 0 0 0 1px rgba(0,0,0,.06);
+   background-color: #fff;
+   border-radius: 6px;
+   filter: drop-shadow(0 3px 5px rgba(0,0,0,.05)) drop-shadow(0 6px 15px rgba(0,0,0,.05));
 }
 
 .promptArea{
-
+    padding: 12px 10px;
+    box-shadow: inset 0 -1px 0 0 #f3f3f3;
+    display: flex;
+    align-items: center;
 }
 
 .promptArea_color{
-
+    margin-right: 12px;
+    width: 20px;
+    height: 20px;
+    border-radius: 2px;
+    box-shadow: inset 0 0 0 1px rgb(0 0 0 / 10%);
+    flex-shrink: 0;
 }
 
 .promptArea_inputArea{
-
+   flex-grow: 1;
+   position: relative;
 }
 
-.promptArea_inputArea_text{
 
+.promptArea_inputArea_text{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 13px;
+    color: black;
+    left: 3px
 }
 
 .promptArea_inputArea_input{
-  
+    outline: none;
+    border: none;
+    padding: 6px 8px;
+    height: 30px;
+    width: 100%;
+    padding-left: 14px;
+    transition: all 0.5s;
+    color:#1f1f1f;
 }
+
+.promptArea_inputArea_input:hover{
+    background-color: rgba(200, 200, 200, 0.5);
+    border-radius: 4px;
+}
+
+.promptArea_inputArea_input:focus{
+    box-shadow: 0 0 0 1px #07c160,0 0 0 4px hsla(0,0%,100%,.75),0 0 0 4px #07c160;
+    background-color: #fff;
+    border-radius: 4px;
+}
+
+
+.paletteArea{
+
+}
+
+.paletteArea_titleArea{
+    padding: 8px 10px;
+    display: flex;
+    color: #1f1f1f;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.paletteArea_titleArea_title{
+    font-size: 13px;
+}
+
+.paletteArea_titleArea_icon{
+
+}
+
+.paletteArea_content{
+    padding: 0 10px 10px;
+}
+
+.paletteArea_content_box{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.paletteArea_content_box_item{
+    box-shadow: inset 0 0 0 1px rgb(0 0 0 / 10%);
+    width: 21px;
+    height: 21px;
+    margin-top: 2px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.paletteArea_content_box_item:hover{
+    box-shadow: inset 0 0 0 1px #fff, inset 0 0 0 2px rgb(0 0 0 / 10%);
+    border-radius: 2px;
+}
+
+
+.customArea{
+
+}
+
+.customArea_content{
+
+}
+
+.customArea_content_paletteArea{
+
+}
+
+.customArea_content_paletteArea_span{
+
+}
+
+
+.customArea_content_progressArea{
+
+}
+
+.customArea_content_progressArea_item{
+
+}
+
+.customArea_content_progressArea_item_title{
+
+}
+
+.customArea_content_progressArea_item_progress{
+
+}
+
+
+.customArea_content_progressArea_item_progress_span{
+
+}
+
+
