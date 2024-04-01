@@ -1,4 +1,9 @@
 
+ul,li{
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
 
 .ColorPalette{
    width: 180px;
